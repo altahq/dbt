@@ -14,4 +14,4 @@ SELECT
     name,
     updated,
     object
-FROM {{source ('stripe', '_airbyte_raw_customers')}}
+FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
