@@ -1,0 +1,21 @@
+sources:
+  - name: stripe
+    database: graphiti
+    schema*: stripe_graphiti_dbt
+    tables:
+    - name: customers
+      description: customers
+      columns: 
+        - name: metadata
+        - name: subscriptions
+        - name: cards
+        - name: account_balance
+        - name: sources
+        - name: is_deleted
+        - name: balance
+        - name: id
+        - name: email
+        - name: created
+        - name: name
+        - name: updated
+        - name: object
