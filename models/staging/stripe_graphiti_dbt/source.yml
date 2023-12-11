@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: stripe_graphiti_dbt
+    schema: stripe_graphiti_dbt
+    tables:
+      - name: _airbyte_raw_customers
+        description: customers
+        columns:
+          - name: metadata
+          - name: subscriptions
+          - name: cards
+          - name: account_balance
+          - name: sources
+          - name: is_deleted
+          - name: balance
+          - name: id
+          - name: email
+          - name: created
+          - name: name
+          - name: updated
+          - name: object
