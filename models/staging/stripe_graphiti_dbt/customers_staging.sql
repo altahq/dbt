@@ -1,4 +1,4 @@
-{{ config(materialized='table', dist='id') }}
+{{ config(materialized='table', dist='id', name='customers', schema= 'stripe_graphiti_dbt') }}
 
 SELECT
     _airbyte_data,
