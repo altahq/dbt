@@ -7,12 +7,8 @@ sources:
       - name: _airbyte_raw_customers
         description: customers
         columns:
+          - name: _airbyte_data
           - name: metadata
-          - name: subscriptions
-          - name: cards
-          - name: account_balance
-          - name: sources
-          - name: is_deleted
           - name: balance
           - name: id
           - name: email
