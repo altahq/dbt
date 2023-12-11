@@ -1,3 +1,5 @@
+{{ config(materialized='table', dist='id') }}
+
 SELECT
     metadata,
     subscriptions,
