@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: stripe
     database: graphiti
-    schema*: stripe_graphiti_dbt
+    schema: stripe_graphiti_dbt
     tables:
     - name: customers
       description: customers
