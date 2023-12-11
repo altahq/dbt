@@ -39,4 +39,4 @@ models:
   graphiti_data:
     staging:
       +materialized: table
-      schema: stripe_graphiti_dbt
+      schema: test
