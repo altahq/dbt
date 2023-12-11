@@ -38,3 +38,4 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   graphiti_data:
       +materialized: table
+      schema: 'stripe_graphiti_dbt'
