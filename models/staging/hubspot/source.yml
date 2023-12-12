@@ -1,0 +1,30 @@
+version: 2
+
+sources:
+  - name: hubspot
+    schema: hubspot_2639e866_3885_4a14_a0ac_53d947f2f907
+    tables:
+      - name: _airbyte_raw_contacts
+        description: raw contacts
+        columns:
+          - name: _airbyte_data
+      - name: _airbyte_raw_companies
+        description: raw companies
+        columns:
+          - name: _airbyte_data
+      - name: _airbyte_raw_campaigns
+        description: raw campaigns
+        columns:
+          - name: _airbyte_data
+      - name: _airbyte_raw_deals
+        description: raw deals
+        columns:
+          - name: _airbyte_data
+      - name: _airbyte_raw_engagements
+        description: raw engagements
+        columns:
+          - name: _airbyte_data
+      - name: _airbyte_raw_owners
+        description: raw owners
+        columns:
+          - name: _airbyte_data
