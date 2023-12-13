@@ -12,5 +12,5 @@ dedup_cte AS (
 SELECT
   *
 FROM dedup_cte
-WHERE row_num = 1;
+WHERE row_num = 1
 {% endmacro %}
