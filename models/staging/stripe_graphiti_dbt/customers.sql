@@ -1,5 +1,6 @@
 {{ config(enabled=true, materialized='table', dist='id', schema='stripe_graphiti_dbt') }}
 
+WITH base AS (
 SELECT
     _airbyte_data,
     _airbyte_data -> 'metadata' as metadata,
@@ -11,3 +12,6 @@ SELECT
     _airbyte_data ->> 'updated' as updated,
     _airbyte_data ->> 'object' as object
 FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
+), 
+
+{{ dedup_logic('id', 'updated', 'customers') }}
