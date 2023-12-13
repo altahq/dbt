@@ -14,4 +14,4 @@ SELECT
 FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
 ), 
 
-{{ dedup_logic('id', 'updated', 'customers') }}
+{{ dedup_logic('id', 'updated') }}

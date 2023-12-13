@@ -4,13 +4,13 @@
 
 dedup_cte AS (
   SELECT
-    {{ ref(model_name) }}.*,
+    base.*,
     ROW_NUMBER() OVER (PARTITION BY {{ primary_key }} ORDER BY {{ cursor_field }} DESC) AS row_num
   FROM base
 )
 
 SELECT
-  {{ ref(model_name) }}.*,
+  *
 FROM dedup_cte
 WHERE row_num = 1;
 {% endmacro %}
