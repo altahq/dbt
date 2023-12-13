@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: stripe_graphiti_dbt
-    schema: stripe_graphiti_dbt
+    schema: "{{ custom_schema_name | trim }}_{{var('workspace_id')}}"
     tables:
       - name: _airbyte_raw_customers
         description: customers
