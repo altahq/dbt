@@ -27,4 +27,4 @@ config_parmas AS (
 )
 
 
-{{ dedup_logic(SELECT primary_key, cursor_field FROM config_parmas) }}
+{{ dedup_logic( primary_key = (SELECT primary_key FROM config_parmas), cursor_field = (SELECT cursor_field FROM config_parmas) ) }}
