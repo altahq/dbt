@@ -15,9 +15,26 @@ SELECT
 FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
 )
 
-{% set primary_key = run_query("SELECT primary_key FROM public.dbt_model_configs WHERE airbyte_workspace_id = {{var('workspace_id')}} AND model_name = {{ this.name }}").columns[0].values() %}
-{% set cursor_field = run_query("SELECT cursor_field FROM public.dbt_model_configs WHERE airbyte_workspace_id = {{var('workspace_id')}} AND model_name = {{ this.name }}").columns[0].values() %}
-{% set sync_mode = run_query("SELECT sync_mode FROM public.dbt_model_configs WHERE airbyte_workspace_id = {{var('workspace_id')}} AND model_name = {{ this.name }}").columns[0].values() %}
+{% set model_config_query %}
+    SELECT 
+        primary_key, cursor_field, sync_mode
+    FROM public.dbt_model_configs 
+    WHERE 
+        airbyte_workspace_id = {{var('workspace_id')}} 
+        AND model_name = {{ this.name }}
+{% endset %}
+
+{% set results = run_query(model_config_query) %}
+{% if execute %}
+
+{% set primary_key = results.columns[0].values() %}
+{% set cursor_field = results.columns[1].values() %}
+{% set sync_mode = results.columns[2].values() %}
+
+{% endif %}
 
 
-{{ dedup_logic( primary_key = var('primary_key'), cursor_field = var('cursor_field') ) }}
+
+
+
+{{ dedup_logic( primary_key = ' {{ primary_key }} ', cursor_field =  '{{ cursor_field }}' ) }}
