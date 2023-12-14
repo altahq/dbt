@@ -13,7 +13,7 @@ SELECT
     _airbyte_data ->> 'updated' as updated,
     _airbyte_data ->> 'object' as object
 FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
-)
+),
 
 {% set model_config_query %}
     SELECT 
