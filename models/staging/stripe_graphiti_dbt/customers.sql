@@ -37,4 +37,4 @@ FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
 
 
 
-{{ dedup_logic( primary_key = {{ primary_key }} , cursor_field =  {{ cursor_field }} ) }}
+{{ dedup_logic( primary_key = {{ var('primary_key') }} , cursor_field =  {{ var('cursor_field') }} ) }}
