@@ -26,7 +26,5 @@ config_parmas AS (
     AND model_name = {{ this.name }}
 )
 
--- {{% set primary_key = (SELECT primary_key FROM config_parmas) %}}
--- {{% set cursor_field = (SELECT cursor_field FROM config_parmas) %}}
 
 {{ dedup_logic((SELECT primary_key FROM config_parmas), (SELECT cursor_field FROM config_parmas)) }}
