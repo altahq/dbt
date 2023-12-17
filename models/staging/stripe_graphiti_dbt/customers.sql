@@ -26,8 +26,12 @@ FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
 
 {% set results = run_query(model_config_query) %}
 
+{% if execute %}
+
 {% set primary_key = results.columns[0].values() %}
 {% set cursor_field = results.columns[1].values() %}
 {% set sync_mode = results.columns[2].values() %}
 
 {{ dedup_logic( var('primary_key')  ,  var('cursor_field')  ) }}
+
+{% endif %}
