@@ -1,6 +1,12 @@
 -- deduplication_macro.sql
 
-{% macro dedup_logic(primary_key, cursor_field, model_name) %}
+{% macro dedup_logic(model_name) %}
+
+{% if execute %}
+
+{% set primary_key=run_query("SELECT primary_key FROM public.dbt_model_configs WHERE airbyte_workspace_id = ' {{var('workspace_id')}} ' AND {{ model_name}}  = ' model_name '").columns[0].values() %}
+{% set cursor_field=run_query("SELECT cursor_field FROM public.dbt_model_configs WHERE airbyte_workspace_id = ' {{var('workspace_id')}} ' AND {{ model_name}}  = ' model_name '").columns[0].values() %}
+
 
 dedup_cte AS (
   SELECT
@@ -13,5 +19,7 @@ SELECT
   *
 FROM dedup_cte
 WHERE row_num = 1
+
+{% endif %}
 
 {% endmacro %}
