@@ -22,5 +22,8 @@ SELECT
 FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
 ),
 
+{% if execute %}
 
 {{ dedup_logic( config(primary_key)  ,  config(cursor_field)  , 'customers') }}
+
+{% endif %}
