@@ -1,20 +1,11 @@
-{{ config(enabled=true, materialized='table', dist='id', schema='stripe_graphiti_dbt') }}
-
-{% set model_config_query %}
-    SELECT 
-        primary_key, cursor_field, sync_mode
-    FROM public.dbt_model_configs 
-    WHERE 
-        airbyte_workspace_id = ' {{var('workspace_id')}} '
-        AND model_name = ' {{ this.name }} '
-{% endset %}
-
-{% set results = run_query(model_config_query) %}
-
-{% set primary_key = results.columns[0].values() %}
-{% set cursor_field = results.columns[1].values() %}
-{% set sync_mode = results.columns[2].values() %}
-
+{{ config(
+    enabled=true, 
+    materialized='table', 
+    dist='id', 
+    schema='stripe_graphiti_dbt',
+    primary_key=run_query(SELECT primary_key FROM public.dbt_model_configs WHERE airbyte_workspace_id = ' {{var('workspace_id')}} ' AND model_name = ' {{ this.name }} ')columns[0].values(),
+    cursor_field=run_query(SELECT cursor_field FROM public.dbt_model_configs WHERE airbyte_workspace_id = ' {{var('workspace_id')}} ' AND model_name = ' {{ this.name }} ')columns[0].values(),
+    ) }}
 
 WITH 
 base AS (
@@ -32,4 +23,4 @@ FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
 ),
 
 
-{{ dedup_logic( var('primary_key')  ,  var('cursor_field')  ) }}
+{{ dedup_logic( config('primary_key')  ,  config('cursor_field')  ) }}
