@@ -23,4 +23,4 @@ FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
 ),
 
 
-{{ dedup_logic( config(primary_key)  ,  config(cursor_field)  ) }}
+{{ dedup_logic( config(primary_key)  ,  config(cursor_field)  , this.name) }}
