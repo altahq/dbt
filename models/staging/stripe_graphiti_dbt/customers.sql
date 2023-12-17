@@ -3,8 +3,8 @@
     materialized='table', 
     dist='id', 
     schema='stripe_graphiti_dbt',
-    primary_key=run_query(SELECT primary_key FROM public.dbt_model_configs WHERE airbyte_workspace_id = ' {{var('workspace_id')}} ' AND model_name = ' {{ this.name }} ').columns[0].values(),
-    cursor_field=run_query(SELECT cursor_field FROM public.dbt_model_configs WHERE airbyte_workspace_id = ' {{var('workspace_id')}} ' AND model_name = ' {{ this.name }} ').columns[0].values()
+    primary_key=run_query(SELECT primary_key FROM public.dbt_model_configs WHERE airbyte_workspace_id = ' {{var("workspace_id")}} ' AND model_name = ' {{ this.name }} ').columns[0].values(),
+    cursor_field=run_query(SELECT cursor_field FROM public.dbt_model_configs WHERE airbyte_workspace_id = ' {{var("workspace_id")}} ' AND model_name = ' {{ this.name }} ').columns[0].values()
     ) }}
 
 WITH 
