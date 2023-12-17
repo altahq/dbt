@@ -20,4 +20,4 @@ SELECT
 FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
 ),
 
-{{ dedup_logic('customers'), var('workspace_id') }}
+{{ dedup_logic('customers', var('workspace_id')) }}
