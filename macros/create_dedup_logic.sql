@@ -2,6 +2,8 @@
 
 {% macro dedup_logic(primary_key, cursor_field, model_name) %}
 
+{% if execute %}
+
 dedup_cte AS (
   SELECT
     base.*,
@@ -13,4 +15,7 @@ SELECT
   *
 FROM dedup_cte
 WHERE row_num = 1
+
+{% endif %}
+
 {% endmacro %}
