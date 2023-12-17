@@ -26,6 +26,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 vars:
   workspace_id: "{{ var('workspace_id', default='default_workspace') }}"
+  primary_key: "default"
+  cursor_field: "default"
+  sync_mode: "default"
 
 
 # Configuring models
