@@ -8,7 +8,8 @@
 {{ config(
     enabled=true, 
     materialized=materialize_mode, 
-    unique_key=primary_key
+    unique_key=primary_key,
+    full_refresh=True
     ) }}
 
 {% do log('Primary Key: ' ~ primary_key, info=True) %}
