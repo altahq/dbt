@@ -8,7 +8,7 @@
 {{ config(
     enabled=true, 
     materialized=materialize_mode, 
-    dist=primary_key,
+    unique_key=primary_key,
     schema='stripe_graphiti_dbt'
     ) }}
 
