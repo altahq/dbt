@@ -1,9 +1,17 @@
+{% if execute %}
+
+{% materialize_mode = get_config( 'customers', var('workspace_id'))['sync_mode'] %}
+{% primary_key = get_config( 'customers', var('workspace_id'))['primary_key'] %}
+
+
 {{ config(
     enabled=true, 
-    materialized=(CASE WHEN get_config( 'customers', var('workspace_id'))['sync_mode'] = 'incremental' THEN 'incremental' ELSE 'table' END), 
-    dist='id' 
+    materialized=materialize_mode, 
+    dist=primary_key
     schema='stripe_graphiti_dbt'
     ) }}
+
+{% endif %}
 
 WITH 
 base AS (
