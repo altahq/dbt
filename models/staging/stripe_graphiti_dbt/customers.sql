@@ -1,5 +1,5 @@
 {{ config(
-    enabled=true, 
+    enabled=false, 
     materialized='table', 
     dist='id', 
     schema='stripe_graphiti_dbt'
