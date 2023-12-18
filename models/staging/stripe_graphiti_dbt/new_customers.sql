@@ -1,7 +1,7 @@
 {{ config(
     enabled=true, 
-    materialized=get_config( 'customers', var('workspace_id'))['sync_mode'], 
-    dist=get_config( 'customers', var('workspace_id'))['primary_key'], 
+    materialized=(CASE WHEN get_config( 'customers', var('workspace_id'))['sync_mode'] = 'incremental' THEN 'incremental' ELSE 'table' END), 
+    dist='id' 
     schema='stripe_graphiti_dbt'
     ) }}
 
