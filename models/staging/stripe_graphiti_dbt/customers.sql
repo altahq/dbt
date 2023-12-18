@@ -1,9 +1,20 @@
+{% if execute %}
+
+{% set materialize_mode = get_config( this.name, var('workspace_id'))['materialize_mode'] %}
+{% set primary_key = get_config( this.name, var('workspace_id'))['primary_key'] %}
+{% set cursor_field = get_config( this.name, var('workspace_id'))['cursor_field'] %}
+{% set full_refresh = get_config( this.name, var('workspace_id'))['full_refresh'] %}
+
+
 {{ config(
-    enabled=false, 
-    materialized='table', 
-    dist='id', 
-    schema='stripe_graphiti_dbt'
+    enabled=true, 
+    materialized=materialize_mode, 
+    unique_key=primary_key,
+    full_refresh=full_refresh
     ) }}
+
+{% do log(this.name ~ ' from within model - Primary Key: ' ~ primary_key, info=True) %}
+{% do log(this.name ~ ' from within model - Materilization Mode: ' ~ materialize_mode, info=True) %}
 
 WITH 
 base AS (
@@ -20,4 +31,6 @@ SELECT
 FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
 )
 
-{{ dedup_logic('customers', var('workspace_id')) }}
+{{ new_dedup(primary_key, cursor_field) }}
+
+{% endif %}
