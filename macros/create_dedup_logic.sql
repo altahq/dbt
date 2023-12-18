@@ -4,16 +4,8 @@
 
 {% if execute %}
 
-{% set primary_key_query %}
-    SELECT primary_key 
-    FROM public.dbt_model_configs 
-    WHERE 
-    airbyte_workspace_id = '{{workspace_id}}' 
-    AND model_name  = '{{model_name}}'
-{% endset %}
-
-{% set cursor_field_query %}
-    SELECT cursor_field 
+{% set dbt_config_query %}
+    SELECT primary_key, cursor_field, sync_mode
     FROM public.dbt_model_configs 
     WHERE 
     airbyte_workspace_id = '{{workspace_id}}' 
@@ -21,11 +13,10 @@
 {% endset %}
 
 
-{% set primary_key=run_query(primary_key_query).columns[0].values() %}
-{% set cursor_field=run_query(cursor_field_query).columns[0].values() %}
--- {% set query_results = run_query("SELECT primary_key, cursor_field, sync_mode FROM public.dbt_model_configs WHERE airbyte_workspace_id = '{{ workspace_id }}' AND model_name  = '{{ model_name }}'")%}
 
--- {% do log('query_results: ' ~ query_results.columns[0].values(), info=True) %}
+{% set primary_key=run_query(dbt_config_query).columns[0].values()[0] %}
+{% set cursor_field=run_query(dbt_config_query).columns[1].values()[0] %}
+
 {% do log('Model Name: ' ~  model_name , info=True) %}
 {% do log('workspace_id: ' ~  workspace_id , info=True) %}
 {% do log('Primary Key Query Result: ' ~ primary_key, info=True) %}
