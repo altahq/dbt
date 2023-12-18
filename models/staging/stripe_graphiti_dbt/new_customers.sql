@@ -1,7 +1,7 @@
 {{ config(
     enabled=true, 
-    materialized=get_config( {{ this.name }}, var('workspace_id'))['sync_mode'], 
-    dist=get_config( {{ this.name }}, var('workspace_id'))['primary_key'], 
+    materialized=get_config( 'customers', var('workspace_id'))['sync_mode'], 
+    dist=get_config( 'customers', var('workspace_id'))['primary_key'], 
     schema='stripe_graphiti_dbt'
     ) }}
 
