@@ -1,7 +1,7 @@
 {% if execute %}
 
-{% materialize_mode = get_config( 'customers', var('workspace_id'))['sync_mode'] %}
-{% primary_key = get_config( 'customers', var('workspace_id'))['primary_key'] %}
+{% set materialize_mode = get_config( 'customers', var('workspace_id'))['sync_mode'] %}
+{% set primary_key = get_config( 'customers', var('workspace_id'))['primary_key'] %}
 
 
 {{ config(
