@@ -8,8 +8,7 @@
 {{ config(
     enabled=true, 
     materialized=materialize_mode, 
-    unique_key=primary_key,
-    schema='stripe_graphiti_dbt'
+    unique_key=primary_key
     ) }}
 
 {% do log('Primary Key: ' ~ primary_key, info=True) %}
@@ -31,13 +30,16 @@ SELECT
 FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
 )
 
-select * from base
+SELECT 
+    *,
+    now() AS dbt_sync_time 
+FROM base
 
 {% if is_incremental() %}
 
   -- this filter will only be applied on an incremental run
   -- (uses > to include records whose timestamp occurred since the last run of this model)
-  where {{ cursor_field }} > (SELECT MAX({{ cursor_field }}) FROM base)
+  WHERE {{ cursor_field }} > (SELECT MAX({{ cursor_field }}) FROM base)
 
 {% endif %}
 

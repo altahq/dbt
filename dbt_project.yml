@@ -41,5 +41,6 @@ vars:
 models:
   graphiti_data:
     staging:
-      +materialized: table
-      schema: test
+      stripe_graphiti_dbt:
+        materialized: table
+        schema: stripe_graphiti_dbt
