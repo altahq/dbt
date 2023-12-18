@@ -1,15 +1,16 @@
 {% if execute %}
 
-{% set materialize_mode = get_config( 'customers', var('workspace_id'))['sync_mode'] %}
+{% set materialize_mode = get_config( 'customers', var('workspace_id'))['materialize_mode'] %}
 {% set primary_key = get_config( 'customers', var('workspace_id'))['primary_key'] %}
 {% set cursor_field = get_config( 'customers', var('workspace_id'))['cursor_field'] %}
+{% set full_refresh = get_config( 'customers', var('workspace_id'))['full_refresh'] %}
 
 
 {{ config(
     enabled=true, 
     materialized=materialize_mode, 
     unique_key=primary_key,
-    full_refresh=False
+    full_refresh=full_refresh
     ) }}
 
 {% do log('Primary Key: ' ~ primary_key, info=True) %}

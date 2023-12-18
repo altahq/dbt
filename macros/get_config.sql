@@ -12,6 +12,23 @@
     AND model_name  = '{{model_name}}'
 {% endset %}
 
+{% set table_exists_query %}
+    SELECT NOT EXISTS
+    (
+        SELECT 
+            1 
+        FROM 
+        information_schema.tables 
+        WHERE 
+        table_schema = '{{ this.schema }}'
+        AND table_name = '{{ model_name }}'
+    )
+{% endset %}
+
+{% do log('Schema: ' ~  this.schema , info=True) %}
+
+
+{% set table_exists=run_query(table_exists_query).columns[0].values()[0] %}
 {% set primary_key=run_query(dbt_config_query).columns[0].values()[0] %}
 {% set cursor_field=run_query(dbt_config_query).columns[1].values()[0] %}
 {% set sync_mode=run_query(dbt_config_query).columns[2].values()[0] %}
@@ -22,7 +39,15 @@
 {% do log('Primary Key: ' ~ primary_key, info=True) %}
 {% do log('Cursor Field: ' ~ cursor_field, info=True) %}
 
-{{ return ({'primary_key': primary_key, 'cursor_field': cursor_field, 'sync_mode': 'incremental'}) }}
+{% set materialize_mode='table' %}
+
+{% if sync_mode == 'incremental_append_dedup' %}
+
+{% set materialize_mode='incremental' %}
+
+{% endif %}
+
+{{ return ({'primary_key': primary_key, 'cursor_field': cursor_field, 'materialize_mode': materialize_mode, 'full_refresh': table_exists}) }}
 
 {% endif %}
 
