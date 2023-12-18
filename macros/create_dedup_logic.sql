@@ -35,7 +35,7 @@ dedup_cte AS (
 
 
 
-    {% do log('Dedupping' ~ model_name, info=True) %}
+    {% do log('Dedupping ' ~ model_name, info=True) %}
     WHERE {{ cursor_field }} > (SELECT MAX({{ cursor_field }}) FROM base)
 
 
@@ -43,16 +43,18 @@ dedup_cte AS (
 )
 
 SELECT
-  *
+  *,
+  now() AS dbt_sync_time
 FROM dedup_cte
 WHERE row_num = 1
 
 {% elif sync_mode =='full_refresh_overwrite' %}
 
-    {% do log('Full Refresh' ~ model_name, info=True) %}
+    {% do log('Full Refreshing ' ~ model_name, info=True) %}
 
 SELECT
-  *
+  *,
+  now() AS dbt_sync_time
 FROM base
 
 {% endif %}
