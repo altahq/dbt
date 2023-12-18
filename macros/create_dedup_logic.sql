@@ -9,8 +9,8 @@
 {% set query_results = run_query("SELECT primary_key, cursor_field, sync_mode FROM public.dbt_model_configs WHERE airbyte_workspace_id = '{{ workspace_id }}' AND model_name  = '{{ model_name }}'")%}
 
 {% do log('query_results: ' ~ query_results, info=True) %}
-{% do log('Model Name: ' ~ {{ model_name }}, info=True) %}
-{% do log('workspace_id: ' ~ {{ workspace_id }}, info=True) %}
+{% do log('Model Name: ' ~  model_name , info=True) %}
+{% do log('workspace_id: ' ~  workspace_id , info=True) %}
 {% do log('Primary Key Query Result: ' ~ primary_key, info=True) %}
 {% do log('Cursor Field Query Result: ' ~ cursor_field, info=True) %}
 
