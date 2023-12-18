@@ -22,7 +22,7 @@
 {% do log('Primary Key: ' ~ primary_key, info=True) %}
 {% do log('Cursor Field: ' ~ cursor_field, info=True) %}
 
-{{ return {'primary_key': primary_key, 'cursor_field': cursor_field, 'sync_mode': 'incremental'} }}
+{{ return ({'primary_key': primary_key, 'cursor_field': cursor_field, 'sync_mode': 'incremental'}) }}
 
 {% endif %}
 
