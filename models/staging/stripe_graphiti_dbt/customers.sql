@@ -18,6 +18,6 @@ SELECT
     _airbyte_data ->> 'updated' as updated,
     _airbyte_data ->> 'object' as object
 FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
-
+),
 
 {{ dedup_logic('customers', var('workspace_id')) }}
