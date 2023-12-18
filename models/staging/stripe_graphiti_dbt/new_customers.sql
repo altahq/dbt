@@ -9,7 +9,7 @@
     enabled=true, 
     materialized=materialize_mode, 
     unique_key=primary_key,
-    full_refresh=True
+    full_refresh=False
     ) }}
 
 {% do log('Primary Key: ' ~ primary_key, info=True) %}
