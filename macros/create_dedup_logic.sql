@@ -7,8 +7,8 @@
 {% set primary_key=run_query("SELECT primary_key FROM public.dbt_model_configs WHERE airbyte_workspace_id = '{{ workspace_id }}' AND model_name  = '{{ model_name }}'").columns[0].values() %}
 {% set cursor_field=run_query("SELECT cursor_field FROM public.dbt_model_configs WHERE airbyte_workspace_id = '{{ workspace_id }}' AND model_name  = '{{ model_name }}'").columns[0].values() %}
 
-{{% do log('Primary Key Query Result: ' ~ primary_key, info=True) %}}
-{{% do log('Cursor Field Query Result: ' ~ cursor_field, info=True) %}}
+{% do log('Primary Key Query Result: ' ~ primary_key, info=True) %}
+{% do log('Cursor Field Query Result: ' ~ cursor_field, info=True) %}
 
 
 dedup_cte AS (
