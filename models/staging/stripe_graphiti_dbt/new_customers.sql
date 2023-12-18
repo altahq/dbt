@@ -30,16 +30,7 @@ SELECT
     _airbyte_data ->> 'object' as object
 FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
 )
-,
 
 {{ new_dedup(primary_key, cursor_field) }}
-
-{% if is_incremental() %}
-
-  -- this filter will only be applied on an incremental run
-  -- (uses > to include records whose timestamp occurred since the last run of this model)
-  AND {{ cursor_field }} > (SELECT MAX({{ cursor_field }}) FROM base)
-
-{% endif %}
 
 {% endif %}
