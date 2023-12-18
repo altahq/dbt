@@ -31,6 +31,17 @@ SELECT
 FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_customers')}}
 )
 
-{{ new_dedup(primary_key, cursor_field) }}
+{% if materialize_mode == 'incremental' %}
+
+    {{ dedup_logic(primary_key, cursor_field) }}
+
+{% else %}
+
+SELECT *,
+    now() AS dbt_sync_time
+FROM
+base
+
+{% endif %}
 
 {% endif %}

@@ -25,7 +25,7 @@
     )
 {% endset %}
 
-{% do log('Schema: ' ~  this.schema , info=True) %}
+{% do log(model_name ~ ' from within config - Schema: ' ~  this.schema , info=True) %}
 
 
 {% set table_exists=run_query(table_exists_query).columns[0].values()[0] %}
