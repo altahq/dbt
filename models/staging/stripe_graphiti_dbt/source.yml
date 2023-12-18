@@ -8,11 +8,7 @@ sources:
         description: customers
         columns:
           - name: _airbyte_data
-          - name: metadata
-          - name: balance
-          - name: id
-          - name: email
-          - name: created
-          - name: name
-          - name: updated
-          - name: object
+      - name: _airbyte_raw_invoice_line_items
+        description: invoice_line_items
+        columns:
+          - name: _airbyte_data
