@@ -24,18 +24,20 @@
 {% do log('Primary Key: ' ~ primary_key, info=True) %}
 {% do log('Cursor Field: ' ~ cursor_field, info=True) %}
 
+{% if sync_mode=='incremental_append_dedup' %}
+
 dedup_cte AS (
   SELECT
     base.*,
     ROW_NUMBER() OVER (PARTITION BY {{ primary_key }} ORDER BY {{ cursor_field }} DESC) AS row_num
   FROM base
 
-{% if sync_mode=='incremental_append_dedup' %}
+
 
     {% do log('Dedupping', info=True) %}
     WHERE {{ cursor_field }} > (SELECT MAX({{ cursor_field }}) FROM base)
 
-{% endif %}
+
 
 )
 
@@ -43,6 +45,16 @@ SELECT
   *
 FROM dedup_cte
 WHERE row_num = 1
+
+{% elif sync_mode =='full_refresh_overwrite' %}
+
+    {% do log('Full Refresh', info=True) %}
+
+SELECT
+  *
+FROM base
+
+{% endif %}
 
 
 {% endif %}
