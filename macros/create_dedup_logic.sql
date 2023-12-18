@@ -26,6 +26,7 @@
 
 {% if sync_mode=='incremental_append_dedup' %}
 
+,
 dedup_cte AS (
   SELECT
     base.*,
