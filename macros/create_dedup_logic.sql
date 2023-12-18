@@ -24,20 +24,18 @@
 {% do log('Primary Key: ' ~ primary_key, info=True) %}
 {% do log('Cursor Field: ' ~ cursor_field, info=True) %}
 
-{% if sync_mode=='incremental_append_dedup' %}
-
-    {% do log('Dedupping', info=True) %}
-    WHERE {{ cursor_field }} > (SELECT MAX({{ cursor_field }}) FROM {{ this }})
-
-{% endif %}
-), 
-
 dedup_cte AS (
   SELECT
     base.*,
     ROW_NUMBER() OVER (PARTITION BY {{ primary_key }} ORDER BY {{ cursor_field }} DESC) AS row_num
   FROM base
 
+{% if sync_mode=='incremental_append_dedup' %}
+
+    {% do log('Dedupping', info=True) %}
+    WHERE {{ cursor_field }} > (SELECT MAX({{ cursor_field }}) FROM base)
+
+{% endif %}
 
 )
 
