@@ -34,9 +34,16 @@ SELECT
 FROM {{source ('stripe_graphiti_dbt', '_airbyte_raw_invoice_line_items')}}
 )
 
-{% if sync_mode == 'incremental_append_dedup' %}
+{% if materialize_mode == 'incremental' %}
 
     {{ new_dedup(primary_key, cursor_field) }}
+
+{% else %}
+
+SELECT *,
+    now() AS dbt_sync_time
+FROM
+base
 
 {% endif %}
 
