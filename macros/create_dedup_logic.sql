@@ -34,7 +34,7 @@ dedup_cte AS (
 
 
 
-    {% do log('Dedupping', info=True) %}
+    {% do log('Dedupping' ~ model_name, info=True) %}
     WHERE {{ cursor_field }} > (SELECT MAX({{ cursor_field }}) FROM base)
 
 
@@ -48,7 +48,7 @@ WHERE row_num = 1
 
 {% elif sync_mode =='full_refresh_overwrite' %}
 
-    {% do log('Full Refresh', info=True) %}
+    {% do log('Full Refresh' ~ model_name, info=True) %}
 
 SELECT
   *
