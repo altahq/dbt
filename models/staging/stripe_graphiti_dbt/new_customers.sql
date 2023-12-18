@@ -12,7 +12,9 @@
     schema='stripe_graphiti_dbt'
     ) }}
 
-
+{% do log('Primary Key: ' ~ primary_key, info=True) %}
+{% do log('Materilization Mode: ' ~ materialize_mode, info=True) %}
+{% do log('Schema: ' ~ config.get('schema'), info=True) %}
 
 WITH 
 base AS (
