@@ -33,11 +33,10 @@
 {% set cursor_field=run_query(dbt_config_query).columns[1].values()[0] %}
 {% set sync_mode=run_query(dbt_config_query).columns[2].values()[0] %}
 
-{% do log('Sync Mode: ' ~  sync_mode , info=True) %}
-{% do log('Model Name: ' ~  model_name , info=True) %}
-{% do log('workspace_id: ' ~  workspace_id , info=True) %}
-{% do log('Primary Key: ' ~ primary_key, info=True) %}
-{% do log('Cursor Field: ' ~ cursor_field, info=True) %}
+{% do log(model_name ~ ' from within config - Sync Mode: ' ~  sync_mode , info=True) %}
+{% do log(model_name ~ ' from within config - Workspace ID: ' ~  workspace_id , info=True) %}
+{% do log(model_name ~ ' from within config - Primary Key: ' ~ primary_key, info=True) %}
+{% do log(model_name ~ ' from within config - Cursor Field: ' ~ cursor_field, info=True) %}
 
 {% set materialize_mode='table' %}
 
