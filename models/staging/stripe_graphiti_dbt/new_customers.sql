@@ -38,3 +38,5 @@ select * from base
   where {{ cursor_field }} > (SELECT MAX({{ cursor_field }}) FROM base)
 
 {% endif %}
+
+{% endif %}
