@@ -44,3 +44,6 @@ models:
       stripe_graphiti_dbt:
         materialized: table
         schema: stripe_graphiti_dbt
+      hubspot:
+        materialized: table
+        schema: hubspot
