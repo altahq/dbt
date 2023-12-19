@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: hubspot
-    schema: hubspot_2639e866_3885_4a14_a0ac_53d947f2f907
+    schema: hubspot_{{var('workspace_id')}}
     tables:
       - name: _airbyte_raw_contacts
         description: raw contacts
