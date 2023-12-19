@@ -19,6 +19,7 @@
 WITH 
 base AS (
 SELECT
+    _airbyte_data,
     _airbyte_data ->> 'id' as id,
     _airbyte_data ->> 'type' as type,
     _airbyte_data ->> 'name' as name,
