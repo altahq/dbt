@@ -26,7 +26,7 @@ SELECT
     _airbyte_data ->> 'appName' as appname,
     _airbyte_data ->> 'subject' as subject,
     _airbyte_data ->> 'lastUpdatedTime' as lastupdatedtime
-FROM {{source ('hubspot', '_airbyte_raw_contacts')}}
+FROM {{source ('hubspot', '_airbyte_raw_campaigns')}}
 )
 
 {% if materialize_mode == 'incremental' %}
