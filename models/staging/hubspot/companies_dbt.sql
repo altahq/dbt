@@ -35,8 +35,8 @@ SELECT
     _airbyte_data -> 'properties' ->> 'hs_created_by_user_id' as hs_created_by_user_id,
     _airbyte_data -> 'properties' ->> 'hs_analytics_source' as hs_analytics_source,
     _airbyte_data -> 'properties' ->> 'annualrevenue' as annualrevenue,
-    (_airbyte_data -> 'properties')::timestamp ->> 'hs_last_sales_activity_date' as hs_last_sales_activity_date,
-    (_airbyte_data -> 'properties')::timestamp ->> 'hs_lastmodifieddate' as hs_lastmodifieddate,
+    (_airbyte_data -> 'properties' 'hs_last_sales_activity_date')::timestamp ->> as hs_last_sales_activity_date,
+    (_airbyte_data -> 'properties' 'hs_lastmodifieddate')::timestamp ->> as hs_lastmodifieddate,
     _airbyte_data -> 'properties' ->> 'numemployees' as numemployees
 FROM {{source ('hubspot', '_airbyte_raw_companies')}}
 )
