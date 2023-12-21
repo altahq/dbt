@@ -27,11 +27,11 @@
 
 {% do log(model_name ~ ' from within config - Schema: ' ~  this.schema , info=True) %}
 
-
 {% set table_exists=run_query(table_exists_query).columns[0].values()[0] %}
-{% set primary_key=run_query(dbt_config_query).columns[0].values()[0] %}
-{% set cursor_field=run_query(dbt_config_query).columns[1].values()[0] %}
-{% set sync_mode=run_query(dbt_config_query).columns[2].values()[0] %}
+{% set config_query_result=run_query(dbt_config_query)%}
+{% set primary_key=config_query_result.columns[0].values()[0] %}
+{% set cursor_field=config_query_result.columns[1].values()[0] %}
+{% set sync_mode=config_query_result.columns[2].values()[0] %}
 
 {% do log(model_name ~ ' from within config - Sync Mode: ' ~  sync_mode , info=True) %}
 {% do log(model_name ~ ' from within config - Workspace ID: ' ~  workspace_id , info=True) %}

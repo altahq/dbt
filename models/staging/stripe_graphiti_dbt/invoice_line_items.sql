@@ -1,9 +1,10 @@
 {% if execute %}
 
-{% set materialize_mode = get_config( this.name, var('workspace_id'))['materialize_mode'] %}
-{% set primary_key = get_config( this.name, var('workspace_id'))['primary_key'] %}
-{% set cursor_field = get_config( this.name, var('workspace_id'))['cursor_field'] %}
-{% set full_refresh = get_config( this.name, var('workspace_id'))['full_refresh'] %}
+{% set config_values = get_config(this.name, var('workspace_id')) %}
+{% set materialize_mode = config_values['materialize_mode'] %}
+{% set primary_key = config_values['primary_key'] %}
+{% set cursor_field = config_values['cursor_field'] %}
+{% set full_refresh = config_values['full_refresh'] %}
 
 
 {{ config(
