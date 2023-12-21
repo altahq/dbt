@@ -21,9 +21,9 @@ base AS (
 SELECT
     _airbyte_data,
     _airbyte_data ->> 'id' as id,
-    _airbyte_data ->> 'archived' as archived,
-    _airbyte_data ->> 'createdAt' as createdat,
-    _airbyte_data ->> 'updatedAt' as updatedat,
+    (_airbyte_data ->> 'archived')::boolean as archived,
+    (_airbyte_data ->> 'createdAt')::timestamp as createdat,
+    (_airbyte_data ->> 'updatedAt')::timestamp as updatedat,
     _airbyte_data -> 'teams' as teams,
     _airbyte_data ->> 'firstName' as firstname,
     _airbyte_data ->> 'lastName' as lastname,

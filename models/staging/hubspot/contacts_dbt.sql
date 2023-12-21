@@ -20,9 +20,10 @@ WITH
 base AS (
 SELECT
     _airbyte_data ->> 'id' as id,
-    _airbyte_data ->> 'archived' as archived,
-    _airbyte_data ->> 'createdAt' as createdat,
-    _airbyte_data ->> 'updatedAt' as updatedat,
+    _airbyte_data -> 'companies' as companies,
+    (_airbyte_data ->> 'archived')::boolean as archived,
+    (_airbyte_data ->> 'createdAt')::timestamp as createdat,
+    (_airbyte_data ->> 'updatedAt')::timestamp as updatedat,
     _airbyte_data -> 'properties' as properties,
     _airbyte_data -> 'properties' ->> 'email' as email,
     _airbyte_data -> 'properties' ->> 'phone' as phone,
@@ -38,7 +39,7 @@ SELECT
     _airbyte_data -> 'properties' ->> 'message' as message,
     _airbyte_data -> 'properties' ->> 'first_deal_created_date' as first_deal_created_date,
     _airbyte_data -> 'properties' ->> 'annualrevenue' as annualrevenue,
-    _airbyte_data -> 'properties' ->> 'hs_last_sales_activity_date' as hs_last_sales_activity_date,
+    (_airbyte_data -> 'properties' ->> 'hs_last_sales_activity_date')::timestamp as hs_last_sales_activity_date,
     _airbyte_data -> 'properties' ->> 'state' as state,
     _airbyte_data -> 'properties' ->> 'numemployees' as numemployees,
     _airbyte_data -> 'properties' ->> 'associatedcompanyid' as associatedcompanyid,
